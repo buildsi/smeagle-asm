@@ -28,7 +28,7 @@ This is how I generated the testing [smeagle-output.json](smeagle-output.json)
 
 ### 2. Generate Assembly
 
-Now we can run the program to generate assemly:
+Now we can run the program to generate assembly:
 
 ```bash
 $ python load.py smeagle-output.json
@@ -43,3 +43,17 @@ mov $0x4,framebase+8
 callq bigcall
 ```
 
+or run with go:
+
+```bash
+$ go run main.go smeagle-output.json
+```
+```
+mov $0x81,%rdi
+mov $0x87,%rsi
+mov $0x47,%rdx
+mov $0x59,%rcx
+mov $0x81,%r8
+mov $0x18,framebase+8
+callq bigcall
+```
