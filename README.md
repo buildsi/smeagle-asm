@@ -57,3 +57,19 @@ mov $0x81,%r8
 mov $0x18,framebase+8
 callq bigcall
 ```
+
+And then in the [test](test) folder we can generate assembly for the test binary (which calls this function)
+
+```bash
+g++ -S -o test.a test.c
+```
+
+And then arbitrariy delete the function body and add our output above (test.temp)
+
+And try compiling again
+
+```bash
+g++ -c test.temp -o test.o
+```
+
+This obviously doesn't work because I don't know what I'm doing :)
