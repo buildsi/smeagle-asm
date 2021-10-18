@@ -49,13 +49,15 @@ or run with go:
 $ go run main.go smeagle-output.json
 ```
 ```
-mov $0x81,%rdi
-mov $0x87,%rsi
-mov $0x47,%rdx
-mov $0x59,%rcx
-mov $0x81,%r8
-mov $0x18,framebase+8
-callq bigcall
+endbr64
+subq  $56, %rsp # Allocate 56 bytes of space on the stack for local variables
+mov   $0x81,%rdi
+mov   $0x87,%rsi
+mov   $0x47,%rdx
+mov   $0x59,%rcx
+mov   $0x81,%r8
+pushq $0x18
+callq bigcall # This is not right for the symbol, obv.
 ```
 
 And then in the [test](test) folder we can generate assembly for the test binary (which calls this function)
