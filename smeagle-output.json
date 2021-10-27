@@ -1,58 +1,95 @@
 {
- "library": "/data/libtest.so",
+ "library": "/tmp/smeagle-asm1566402635/1/libfoo.so",
  "locations":
  [
    {
     "function": {
-      "name": "bigcall",
+      "name": "_Z8FunctionddP26STRUCTstructZthyjfbdvfbcet",
       "parameters": [
         {
-          "name":"a",
-          "type":"long int",
-          "class":"Integer",
-          "location":"%rdi",
+          "name":"fpFloatVbsqkbipfxttmfp",
+          "type":"double",
+          "class":"Float",
+          "location":"%xmm0",
           "direction":"import",
           "size":"8"
         },
         {
-          "name":"b",
-          "type":"long int",
+          "name":"fpFloatCgrvmtmupvrxgd",
+          "type":"double",
+          "class":"Float",
+          "location":"%xmm1",
+          "direction":"import",
+          "size":"8"
+        },
+        {
+          "name":"structZthyjfbdvfbcet",
+          "type":"STRUCTstructZthyjfbdvfbcet *",
+          "class":"Pointer",
+          "location":"%rdi",
+          "direction":"unknown",
+          "size":"8",
+          "indirections":"1",
+          "underlying_type":             {
+              "type":"STRUCTstructZthyjfbdvfbcet",
+              "class":"Struct",
+              "size":"4",
+              "fields": [
+               {
+                 "name":"fpIntGzryoclchfdmp",
+                 "type":"short int",
+                 "class":"Scalar",
+                 "size":"2"
+               },               {
+                 "name":"fpIntDcvmaaefaczzoel",
+                 "type":"short int",
+                 "class":"Scalar",
+                 "size":"2"
+               }]
+            }}
+    ]
+   }},
+   {
+    "function": {
+      "name": "_ZNKSt5ctypeIcE8do_widenEc",
+      "parameters": [
+        {
+          "name":"this",
+          "type":"const const ctype<char> *",
+          "class":"Pointer",
+          "location":"%rdi",
+          "direction":"unknown",
+          "size":"8",
+          "indirections":"1",
+          "underlying_type":             {
+              "type":"ctype<char>",
+              "class":"Struct",
+              "size":"24",
+              "fields": [
+               {
+                 "name":"do_widen",
+                 "type":"do_widen",
+                 "class":"Function",
+                 "size":"8"
+               },               {
+                 "name":"widen",
+                 "type":"widen",
+                 "class":"Function",
+                 "size":"8"
+               },               {
+                 "name":"_M_widen_init",
+                 "type":"_M_widen_init",
+                 "class":"Function",
+                 "size":"8"
+               }]
+            }},
+        {
+          "name":"__c",
+          "type":"char",
           "class":"Integer",
           "location":"%rsi",
           "direction":"import",
-          "size":"8"
-        },
-        {
-          "name":"c",
-          "type":"long int",
-          "class":"Integer",
-          "location":"%rdx",
-          "direction":"import",
-          "size":"8"
-        },
-        {
-          "name":"d",
-          "type":"long int",
-          "class":"Integer",
-          "location":"%rcx",
-          "direction":"import",
-          "size":"8"
-        },
-        {
-          "name":"e",
-          "type":"long int",
-          "class":"Integer",
-          "location":"%r8",
-          "direction":"import",
-          "size":"8"
-        },
-        {
-          "name":"f",
-          "type":"__int128",
-          "class":"Integer",
-          "location":"framebase+8",
-          "direction":"import",
-          "size":"16"
+          "size":"1"
         }
     ]
    }}

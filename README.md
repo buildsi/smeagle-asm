@@ -26,27 +26,13 @@ $ ./build/standalone/Smeagle -l /data/libtest.so > /data/smeagle-output.json
 
 This is how I generated the testing [smeagle-output.json](smeagle-output.json)
 
-### 2. Generate Assembly
+### 2. Generate Terminal Assembly
 
-Now we can run the program to generate assembly:
-
-```bash
-$ python load.py smeagle-output.json
-```
-```
-mov $0x4,%rdi
-mov $0x3,%rsi
-mov $0x5,%rdx
-mov $0x3,%rcx
-mov $0x1,%r8
-mov $0x4,framebase+8
-callq bigcall
-```
-
-or run with go:
+For an old Python script, see [scripts](scripts).
+Currently we can generate with go:
 
 ```bash
-$ go run main.go smeagle-output.json
+$ go run main.go gen smeagle-output.json
 ```
 ```
 endbr64
@@ -60,18 +46,67 @@ pushq $0x18
 callq bigcall # This is not right for the symbol, obv.
 ```
 
-And then in the [test](test) folder we can generate assembly for the test binary (which calls this function)
+or compile first and run the binary:
 
 ```bash
-g++ -S -o test.a test.c
+$ make
+$ ./smeagleasm gen smeagle-output.json
 ```
 
-And then arbitrariy delete the function body and add our output above (test.temp)
+### 3. Codegen + Assembly
 
-And try compiling again
+What we really want to do for a more robust testing of smeagle is:
+
+1. Use codegen to generate some number of c/c++ scripts that do something in main, matched with a library? The functions should confirm values passed.
+2. Compile and generate smeagle output for step 1
+3. Run assembly generator scripts here and plug result into a main function template
+4. Compile template and run and confirm same answer
+
+#### Codegen
+
+You can use (or add new examples) to [examples](examples). For each example, you should include a codegen.yaml that uses random generation,
+and **includes a Makefile to compile some main function to a binary named `binary`, and a library to libfoo.so**
+
+#### Running
+
+Steps 2-4 are done by the library here. Since we also need Smeagle, we do the whole shanbang in a container.
+
+##### 1. Build the container
 
 ```bash
-g++ -c test.temp -o test.o
+$ docker build -t ghcr.io/buildsi/smeagleasm .
 ```
 
-This obviously doesn't work because I don't know what I'm doing :)
+##### 2. Shell into it
+
+```bash
+$ docker run -it --rm ghcr.io/buildsi/smeagleasm bash
+```
+
+If you want to bind code locally (e.g., to develop/make changes and then try running):
+
+```bash
+$ docker run -it --rm -v $PWD:/src ghcr.io/buildsi/smeagleasm
+```
+
+The working directory, /src has the executable "smeagleasm" and "Smeagle" is in /code/build/standalone.
+
+```bash
+ ls
+Dockerfile  README.md  cli	 go.mod  libtest.so  scripts		  smeagleasm  utils
+Makefile    asm        examples  go.sum  main.go     smeagle-output.json  test	      version
+root@59c7c62db9a2:/src# which Smeagle
+/code/build/standalone/Smeagle
+```
+
+Now let's run the test generator!
+
+```bash
+$ go run main.go test examples/cpp/simple/codegen.yaml 
+```
+
+**TODO**
+
+- Corpus Loader needs to skip "empty" functions (e.g., init and fini currently don't add anything)
+- Compare output between generated and original
+- Try generating smeagle output again?
