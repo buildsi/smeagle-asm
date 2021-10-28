@@ -1,11 +1,11 @@
 github.com/DataDrake/cli-ng/v2 v2.0.2 h1:7+25l25VmlERCE95glW6QKBUF13vxqAM2jasFiN02xQ=
 github.com/DataDrake/cli-ng/v2 v2.0.2/go.mod h1:bU9YaNNWWVq0eIdDsU3TCe9+7Jb398iBBoqee5EiKWQ=
-github.com/buildsi/codegen v0.0.0-20211020195131-dd21e6aa725c h1:u1hKJ7V2d4VR4xuQopGNfO0gWvtJhcedaPgzuj67gfY=
-github.com/buildsi/codegen v0.0.0-20211020195131-dd21e6aa725c/go.mod h1:P+tlnLln+BMMlLKpFo1kZ7Z8FJvh87FqBrbHN3RwIIw=
+github.com/buildsi/codegen v0.0.0-20211028023809-158752fcdcca h1:sgKZPBCpfUceKrRfDObW2CSvpktGJ+3EJ1YphJs+6oc=
+github.com/buildsi/codegen v0.0.0-20211028023809-158752fcdcca/go.mod h1:P+tlnLln+BMMlLKpFo1kZ7Z8FJvh87FqBrbHN3RwIIw=
 github.com/mitchellh/mapstructure v1.4.2 h1:6h7AQ0yhTcIsmFmnAwQls75jp2Gzs4iB8W7pjMO+rqo=
 github.com/mitchellh/mapstructure v1.4.2/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
-github.com/vsoch/gosmeagle v0.0.0-20211018173528-e95fe963b27c h1:fbLL/DqpAvMFeH/9rr/a37PMwVXL4Vs1Ys+3+pqbQ6U=
-github.com/vsoch/gosmeagle v0.0.0-20211018173528-e95fe963b27c/go.mod h1:T23QVbcJK7z4XTlw0LQjFwQ7Gf9KHcTd/d89oOHN+Zk=
+github.com/vsoch/gosmeagle v0.0.0-20211027225030-dc6dcfa65232 h1:gzUU7OTsqgUvtGQ4Hss2HUPzI6FaypOTKIizsCQSzQ0=
+github.com/vsoch/gosmeagle v0.0.0-20211027225030-dc6dcfa65232/go.mod h1:T23QVbcJK7z4XTlw0LQjFwQ7Gf9KHcTd/d89oOHN+Zk=
 golang.org/x/arch v0.0.0-20210901143047-ebb09ed340f1 h1:MwxAfiDvuwX8Nnnc6iRDhzyMyyc2tz5tYyCP/pZcPCg=
 golang.org/x/arch v0.0.0-20210901143047-ebb09ed340f1/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=

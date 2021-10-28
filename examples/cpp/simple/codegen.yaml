@@ -21,3 +21,6 @@ generate:
       parameters:
         min: 1
         max: 10
+        pointers: false
+        types:
+          - int

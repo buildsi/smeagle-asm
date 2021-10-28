@@ -54,7 +54,8 @@ func RunTests(jsonYaml string, n int) {
 	}
 
 	// Read in smeagle output and generate assembly
-	assembly := Generate(outfile)
+	vars := generate.Load(filepath.Join(testdir, "codegen.json"))
+	assembly := Generate(outfile, vars)
 	content := TemplateContent{assembly}
 
 	// Template a second binary, compile again
@@ -67,24 +68,31 @@ func RunTests(jsonYaml string, n int) {
 	}
 
 	// Compile again
-	_, err = utils.RunCommand([]string{"g++", "binary.s", "-L.", "-ltest", "-o", "edits"}, []string{}, testdir, "")
+	_, err = utils.RunCommand([]string{"g++", "binary.s", "-L.", "-lfoo", "-o", "edits"}, []string{}, testdir, "")
 	if err != nil {
 		log.Fatalf("Error compiling second assembly file: %s\n", err)
 	}
 
+	// Ensure we have added PWD to LD_LIBRARY_PATH
+	envar := []string{"export LD_LIBRARY_PATH=."}
 	// Run both and compare result - should run in container at this point
-	resOriginal, err := utils.RunCommand([]string{"./binary"}, []string{}, testdir, "")
+	resOriginal, err := utils.RunCommand([]string{"./binary"}, envar, testdir, "")
 	if err != nil {
-		log.Fatalf("Issue running original binary %x\n", err)
+		log.Fatalf("Issue running original binary %s\n", err)
 	}
 
-	resEdited, err := utils.RunCommand([]string{"./edits"}, []string{}, testdir, "")
+	resEdited, err := utils.RunCommand([]string{"./edits"}, envar, testdir, "")
 	if err != nil {
-		log.Fatalf("Issue running assembly-generated binary %x\n", err)
+		log.Fatalf("Issue running assembly-generated binary %s: %s\n", resEdited, err)
 	}
 
 	// print result here / calculate metrics!
-	fmt.Println(resOriginal, resEdited)
+	fmt.Println("Original:\n", resOriginal, "\nGenerated:\n", resEdited)
+	if resOriginal == resEdited {
+		fmt.Printf("Generated assembly output is the same as original! 😍️\n")
+	} else {
+		fmt.Printf("Generated assembly output is different! 😭️\n")
+	}
 
 	// Can we generate smeagle assembly again?
 }

@@ -30,6 +30,6 @@ func init() {
 // RunParser reads a file and creates a corpus
 func RunGen(r *cmd.Root, c *cmd.Sub) {
 	args := c.Args.(*GenArgs)
-	assembly := asm.Generate(args.JsonFile[0])
+	assembly := asm.Generate(args.JsonFile[0], nil)
 	fmt.Println(assembly)
 }

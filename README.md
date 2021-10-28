@@ -65,7 +65,11 @@ What we really want to do for a more robust testing of smeagle is:
 #### Codegen
 
 You can use (or add new examples) to [examples](examples). For each example, you should include a codegen.yaml that uses random generation,
-and **includes a Makefile to compile some main function to a binary named `binary`, and a library to libfoo.so**
+and also does the following (since we are doing fairly scoped testing this is currently required):
+
+ - the Makefile should compile some main.cpp to a binary called binary
+ - the supporting library should be compiled to libfoo.sh
+ - the function name (in codegen.yaml) should be called "Function" - the reason is that Smeagle generates other functions that we aren't interested in, and we need to be able to identify this function.
 
 #### Running
 
@@ -99,14 +103,47 @@ root@59c7c62db9a2:/src# which Smeagle
 /code/build/standalone/Smeagle
 ```
 
-Now let's run the test generator!
+Now let's run the test generator! Note that right now smeagle is throwing up on more complex data structures,
+so we added numeric: true to stick with simple ones.
 
 ```bash
 $ go run main.go test examples/cpp/simple/codegen.yaml 
 ```
+```
+Writing tests to /tmp/smeagle-asm3071107564
+map[Function:{function false {1 10 0 false [int]}}]
+{function false {1 10 0 false [int]}}
+// Writing [0:foo.h]
+// Writing [1:foo.c]
+// Writing [2:main.c]
+Original:
+ fpIntFihaspaqvtqlk3697873340
+fpIntLgqhofsrvcwrefki2158627128
+fpIntFotrofuqpvbelqdc334443644
+fpIntVpflvptgpm-1554230950
+fpIntVumticcweh4178710631
+fpIntSyehhablnlxkcuizhp-3515931
+fpIntIfayizxtgjmzwzdy-1217264536
+fpIntNqcmoheczeysicadu1182077887
+ 
+Generated:
+ fpIntFihaspaqvtqlk3697873340
+fpIntLgqhofsrvcwrefki2158627128
+fpIntFotrofuqpvbelqdc334443644
+fpIntVpflvptgpm-1554230950
+fpIntVumticcweh4178710631
+fpIntSyehhablnlxkcuizhp-3515931
+fpIntIfayizxtgjmzwzdy1182077887
+fpIntNqcmoheczeysicadu3077702760
 
-**TODO**
+Generated assembly output is different! 😭️
+```
+It segfaults most of the time, works every once in a while, and fails a lot. At this point I need to... write more assembly! :cry:
 
-- Corpus Loader needs to skip "empty" functions (e.g., init and fini currently don't add anything)
+
+Note that gosmeagle currently does not load Enum or Arrays correctly - since codegen doesn't have them I didn't write this yet.
+If you find that there are any parsing issues, please [open an issue](https://github.com/buildsi/smeagle-asm) and I can help.
+
+
 - Compare output between generated and original
 - Try generating smeagle output again?
